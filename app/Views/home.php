@@ -22,7 +22,7 @@
         <span id="base_url" class="w3-hide"><?php echo base_url(); ?></span>
         <div class="w3-container" id="table_container">
             <div class="w3-panel w3-blue w3-padding w3-xlarge w3-round w3-card-4">Ajánlatok</div>
-            <div class="w3-row w3-margin-top">
+            <div class="w3-row w3-margin-top w3-margin-bottom">
                 <table id="offers" class="display">
                     <thead>
                         <tr>
@@ -31,10 +31,26 @@
                             <th>Város</th>
                             <th>Ár</th>
                             <th>Kép</th>
-                            <th>Osztályozás</th>
+                            <th>Csillag</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                        <?php
+                        foreach($offers as $offer) {
+                            $star = $offer['star'] == 0 ? 'N/A' : $offer['star'];
+                            $rounded_price = ceil($offer['price']);
+
+                            echo '<tr>';
+                            echo "<td>{$offer['hotel_name']}</td>";
+                            echo "<td>{$offer['country']}</td>";
+                            echo "<td>{$offer['city']}</td>";
+                            echo "<td>{$rounded_price}</td>";
+                            echo "<td><img width=\"50px\" src=\"{$offer['image']}\" alt=\"Hotel image\" /></td>";
+                            echo "<td>{$star}</td>";
+                            echo '</tr>';
+                        }
+                        ?>
+                    </tbody>
                     <tfoot></tfoot>
                 </table>
             </div>
@@ -49,14 +65,15 @@
     $("#offers").DataTable({
         language: {
             url: $("span#base_url").text() + 'app/Libraries/datatables/HU_hu.json'
-        }
+        },
+        pageLength: 21
     });
     </script>
     <script>
-        $(document).ready(function() {
-            $("select[name='offers_length']").children("option[value='10']").hide();
-            $("select[name='offers_length']").children("option[value='25']").prop('selected', true);
-        });
+    $(document).ready(function() {
+        $("select[name='offers_length']").children("option[value='10']").hide();
+        $("select[name='offers_length']").children("option[value='25']").prop('selected', true);
+    });
     </script>
 </body>
 
