@@ -6,9 +6,9 @@ DEFAULT COLLATE utf8mb4_general_ci;
 
 USE hotels;
 
-DROP TABLE IF EXISTS `cache`;
+DROP TABLE IF EXISTS `cache_offers`;
 
-CREATE TABLE IF NOT EXISTS `cache` (
+CREATE TABLE IF NOT EXISTS `cache_offers` (
     offer_id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     hotel_id INT NOT NULL,
     hotel_name VARCHAR(255) NOT NULL,
@@ -29,6 +29,12 @@ CREATE TABLE IF NOT EXISTS `cache` (
 SET GLOBAL event_scheduler = ON;
 DROP EVENT IF EXISTS delete_offers;
 
+DELIMITER |
+
 CREATE EVENT delete_offers
 ON SCHEDULE EVERY 20 MINUTE
-DO DELETE FROM `cache`;
+DO BEGIN 
+DELETE FROM `cache_offers`;
+ALTER TABLE 'cache_offers' AUTO_INCREMENT = 1;
+END |
+DELIMITER ;
