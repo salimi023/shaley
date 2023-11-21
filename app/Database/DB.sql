@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `cache_offers` (
     `image` VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- Removal of database records in every 20 minutes
 SET GLOBAL event_scheduler = ON;
 DROP EVENT IF EXISTS delete_offers;
 
