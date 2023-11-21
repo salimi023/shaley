@@ -8,7 +8,7 @@ class CacheModel extends Model
     // Table data
     protected $DBGroup = 'default';
 
-    protected $table = 'cache';
+    protected $table = 'cache_offers';
     protected $primaryKey = 'offer_id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
