@@ -27,11 +27,11 @@ class OffersCache extends Migration
             'image' => ['type' => 'VARCHAR', 'constraint' => 255, 'null' => true, 'default' => 'NULL']
         ])
             ->addKey('offer_id', true)
-            ->createTable('cache', true);
+            ->createTable('cache_offers', true);
     }
 
     public function down()
     {
-        $this->forge->dropTable('cache');
+        $this->forge->dropTable('cache_offers');
     }
 }
